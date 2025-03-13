@@ -1,0 +1,182 @@
+1977,1,Spectru Intim - Virgil Razesu
+1992,1,Ten Women, Ten Stories - M. Whitaker, J. Thurber, R. Dahl
+1993,1,Scrieri Vol.1 - Bogdan Petriceicu Hasdeu
+1993,1,Despre Sinucidere - Emile Durkheim
+1993,1,The Picture of Dorian Gray + CD - Oscar Wilde
+1995,1,Ne vorbeste Parintele Cleopa 2
+1995,1,Tricolorul Romaniei - Adina Berciu-Draghicescu
+1995,1,Femeia pierduta - Jude Deveraux
+1995,1,Printre Morti - Michael Tolkin
+1996,1,Psihologie generala - Andrei Cosmovici
+1996,1,Ne vorbeste Parintele Cleopa 4
+1996,1,Voices from Inside - M. Shelley, R. L. Stevenson, E. Bronte
+1996,1,A World of Difference - R. Dahl, B. MacLaverty, G. Greene
+1997,1,Ne vorbeste Parintele Cleopa 1
+1997,1,Ghidul medicului de garda - Mircea Beuran, Gerald Popa
+1997,1,Ghid de urgente pediatrice - Mircea Beuran, Coriolan Ulmeanu
+1997,1,Rezistenta antisovietica in Basarabia 1944-1950 - Elena Postica
+1998,1,Ghid de urgente in ginecologie-obstetrica - Gabriel Banceanu
+1998,1,Sfanta taina a spovedaniei pe intelesul tuturor - Ioachim Parvulescu
+1998,1,Ghid de urgente in ORL, oftalmologie si chirurgie cervico-oro-maxilo-faciala - Mircea Beuran, Daniel Oanta, Monica Pop
+1998,1,Spionaj - Ernest Volkman
+1998,1,Ghid de urgente in chirurgia generala - Mircea Beuran
+1998,1,Infrunta viitorul - Elizabeth Hand
+1998,1,Opium - Colin Falconer
+1998,1,Invitatie in iad - Dumitru Crihan
+1998,1,Gustoase si ieftine - Alexandre Dumas
+1998,1,Sunteti anemici? - Auguste Moll Weis
+1998,1,Cereale - Maurice Messegue
+1998,1,Maine Taiem Porcul! - D. Brindu
+1998,1,Vreti sa va ingrasati? - Auguste Moll Weis
+1998,1,Feriti-va de Ateroscleroza! - Auguste Moll-Weis
+1998,1,Alune, nuci, migdale... - Maurice Messegue
+1998,1,Gheena - Lewis Ganett
+1998,1,Citricele - Maurice Messegue
+1998,1,Strugurii - Maurice Messegue
+1998,1,Four Continents + CD - Nadine Gordimer, Chinua Achebe
+1998,1,An Ideal Husband - Oscar Wilde
+1999,1,Epopeea lui Ghilgames
+1999,1,Ghid de urgente in medicina interna - Mircea Beuran
+1999,1,Olimpiadele de matematica cls 8 1990-1998 - A. Blaga, A. Balauca
+1999,1,Ne vorbeste Parintele Cleopa 9
+1999,1,Potiuni magice - Gerina Dunwich
+1999,1,Al cui chip sa purtam? - Nicodim Mandita
+1999,1,Khora. Teme si dificultati ale relatiei dintre filosofie si arhitectura - Augustin Ioan
+1999,1,Ghid de manevre medicale si colaborare medic-asistenta - Mircea Beuran
+1999,1,Multiplan: Mumiile egiptene
+1999,1,A douasprezecea planeta - Zecharia Sitchin
+1999,1,Sfinx . Tainele istoriei - Hans-Christian Huf
+1999,1,Sursele germane ale creatiei eminesciene Vol.1+2 - Helmuth Frisch
+1999,1,Dogmatica experientei ecleziale - Karl Christian Felmy
+1999,1,Retete din bucataria lumii - Mircea Georgescu
+1999,1,Istoria civilizatiei britanice. Vol.1. Din preistorie pana in secolul al XVII-lea - Adrian Nicolescu
+1999,1,Multiplan: Broaste fantastice
+1999,1,Arhitectura care nu exista. Imaginar, virtual, utopie - Augustin Ioan
+1999,1,Puterea rugaciunii iertarea mortilor
+1999,1,Gaina batrana face zeama buna - Armand Lebault
+1999,1,Macaroanele, dar nu numai ele! - Alexandre Dumas
+1999,1,Aoleooo, ma doare burta - Auguste Moll Weis
+1999,1,Caise, piersici, prune - Maurice Messegue
+1999,1,Maslinul si uleiul lui - Maurice Messegue
+1999,1,Se ieftinesc ouale - Dr. Gottschalk
+1999,1,Jocul fluturilor - I. Nicolau
+1999,1,Pepenele si... gasca lui! - Maurice Messegue
+2000,1,Profetul - Kahlil Gibran
+2000,1,Istoria culturii si civilizatiei - Vol. I, II, III - Ovidiu Drimba
+2000,1,Amprentele zeilor - Graham Hancock
+2000,1,Ghid de urgente in psihiatrie - Lidia Nica-Udangiu, Dan Prelipceanu, Radu Mihailescu, Mircea Beuran
+2000,1,Profetiile de la Celestine - James Redfield
+2000,1,Erminia picturii bizantine - Dionisie din Furna
+2000,1,Patericul Atonit - Arhimandritul Ioannikios
+2000,1,Ciupercile - N. Mateescu
+2000,1,Memento mori - Mihai Eminescu
+2000,1,Nic Nastrusnic si blestemul mumiei - Francesca Simon
+2000,1,Matematica pentru cei mici - Cornelia Mot
+2000,1,Ce si cum - Multimedia si lumile virtuale - Andreas Schmenk
+2000,1,Bazele spirituale ale prosperitatii - Roy Eugene Davis
+2000,1,Tratat de gramatica a limbii romane Vol.1: Morfologia - Corneliu Dimitriu
+2000,1,Sfinx. Tainele istoriei vol. ii - Hans-Christian Huf
+2000,1,Cantece fara tara - Octavian Goga
+2000,1,Arta plastica moderna din Basarabia - Tudor Stavila
+2000,1,Voi cuceri Manhattanul - Judith Krantz
+2000,1,(Re)sursele formei arhitecturale - Nicholas Ray
+2000,1,Centrul lumii locuite - Florin Biciusca
+2000,1,Ceaiurile mele pentru ficat - D.E. Du Brin
+2000,1,Ceaiurile mele de dragoste - Maurice Messegue
+2000,1,Traiasca mamaliga - D.E. du Brin
+2000,1,Cacao, cafea, ceai - Maurice Messegue
+2000,1,Afine, agrise, coacaze - Maurice Messegue
+2000,1,Aveti copii mofturosi? - Alexandre Dumas
+2000,1,Vinul - C.A. Alboniti
+2000,1,Morcovul si fratii lui - Maurice Messegue
+2000,1,Andive, cicoare, anghinare - Maurice Messegue
+2000,1,Chiolhanurile... Mierii! - D.E. Du Brin
+2000,1,Great English Monarchs and their Times - Gina D. B. Clemen
+2001,1,A zecea viziune - James Redfield
+2001,1,Sfantul Nectarie, Sfantul secolului nostru - Sotos Hondropoulos
+2001,1,Arta pacii - Morihei Ueshiba
+2001,1,Ioan Slavici. Editie integrala 7 volume
+2001,1,Sfanta xenia cea smerita si nebuna pentru Hristos
+2001,1,Chemarea strabunilor - Jack London
+2001,1,Limba engleza fara profesor - Dan Dutescu
+2001,1,Ne vorbeste Parintele Cleopa 11
+2001,1,Agenda medicala Merck. Simptomele explicate pacientilor
+2001,1,Ghid de medicina fizica si recuperare medicala - Georgiana-Ozana Tache
+2001,1,Mitul si filmul - Ana-Maria Plamadeala
+2001,1,Nicodim Aghioritul - Elia Citterio
+2001,1,Tapiseria contemporana din Republica Moldova - Ana Simac
+2001,1,Ouale de Pasti (Coperta Albastra) - Artur Gorovei
+2001,1,Sporturile
+2001,1,Acul si steaua - Gheorghe Grigurcu
+2001,1,Atlasul literaturii romane - Adrian Costache, Luminita Cornea, Cristina Ionescu, Gherghe Lazarescu
+2001,1,Scrieri I discursuri teologice si etice - Simeon Noul Teolog
+2001,1,Demonii - Colin Falconer
+2001,1,Hermeneutica radicala si opera de arta - John E. Hancock
+2001,1,Istoria civilizatiei britanice. Vol.2. Secolul al XVII-lea: 1603-1714 - Adrian Nicolescu
+2001,1,Pravila de rugaciune. Bogorodisnaia
+2001,1,Ceaiurile mele pentru copii - M. Messegue
+2001,1,Ceaiurile Mele Pentru Barbati - M. Messegue
+2001,1,Legumele - Eduard Baltzer
+2001,1,Hai sa mancam picant! - M. Messegue, Michel Bontemps
+2001,1,Ceaiurile mele pentru femei - M. Messegue
+2001,1,Ceaiurile Mele Pentru Stomac - D.E. Du Brin
+2001,1,Ingrijiti-va rinichii - Auguste Moll-Weiss
+2001,1,Miere, propolis, laptisor de matca - D.E. Du Brin
+2001,1,Brrr! Inghetata - A. Dumas
+2001,1,Sa ne tratam si cu... piper?! - M. Messegue
+2001,1,Ceapa si prazul - Maurice Messegue
+2001,1,Se poarta vitaminele - D.E. du Brin
+2001,1,Alice in Tara Oglinzilor - Lewis Carroll
+2001,1,Ardei Rosii Vinete - Maurice Messegue
+2001,1,Un prieten pentru copiii nostri - Ileana Andreescu
+2001,1,Capsuni, cirese, visine - Maurice Messegue
+2002,1,Cele patru legaminte, cartea intelepciunii toltece - Don Miguel Ruiz
+2002,1,Psihologia multimilor - Gustave Le Bon
+2002,1,Psaltirea Maicii Domnului cu scris mare
+2002,1,Tratat de dezinformare - Vladimir Volkoff
+2002,1,Fabule, proza, poezii - Grigore Alexandrescu
+2002,1,Poezii - George Cosbuc
+2002,1,Ne vorbeste Parintele Cleopa 12
+2002,1,Secretul Shambhalei - James Redfield
+2002,1,Cartea despre femei - Osho
+2002,1,Introducere In Stiinta Comunicarii Si A Relatiilor Publice - Flaviu Calin Rus
+2002,1,Singur pe lume - Hector Malot
+2002,1,Marele Gatsby - Francis Scott Fitzgerald
+2002,1,Parintele Porfirie stravazatorul, inaintevazatorul, tamaduitorul - Anarghiros I. Kalliatsos
+2002,1,Armata romana in razboiul de independenta 1877-1878 - Cornel I. Scafes, Horia Vl. Serbanescu
+2002,1,Managementul Resurselor Umane - Ticu Constantin, Ana StoicA-Constantin
+2002,1,Batranul Porfirie Parintele duhovnicesc si pedagog - Gheorghios S. Kroustalakis
+2002,1,Anastasimatar
+2002,1,Geometria tetraedrului - Magdalena Niculescu
+2002,1,Caiet de abilitati practice - Clasa 1 - Mirela Rizea-Marinescu
+2002,1,Tratat de cardiologie Vol.1 - Costin Carp
+2002,1,Lumea stiintei, Larousse, viata si ecologia
+2002,1,Arhiva spiritista vol. 1 - B.P. Hasdeu
+2002,1,Frumoasa Boldur - Victor Hugo
+2002,1,Shambala - Victoria LePage
+2002,1,Tratat de drept civil roman Vol.2 - C. Hamangiu, I. Rosetti-Balanescu, Al. Baicoianu
+2002,1,Muzica in ceremonialul nuptial din Basarabia - Svetlana Badrajan
+2002,1,Drept Comercial Roman Vol. Ii - I. L. Georgescu
+2002,1,Datinile noastre la nastere si la nunta - Artur Gorovei
+2002,1,Bibliografia generala a etnografiei si folclorului romanesc 2
+2002,1,Cetatile sufletului. Manastiri si schituri basarabene - Pavel Balan
+2002,1,Tratat de gramatica a limbii romane Vol.2: Sintaxa - Corneliu Dimitriu
+2002,1,Probleme de algebra - Luciana Lupas, Alexandru Lupas
+2002,1,Bolile importante - Larousse
+2002,1,Viata sexuala. Larousse
+2002,1,Ghidul mamei grijulii. Larousse
+2002,1,O introducere in studiul ecuatiilor diofantiene - Titu Andreescu, Dorin Andrica
+2002,1,Liturghia-cerul pe pamant. Cugetari mistice despre biserica - Ioan din Kronstadt
+2002,1,Robinson Crusoe - Daniel Defoe
+2002,1,3-6 Ani - In gradina de legume
+2002,1,Sa stii sa te ingrijesti. Larousse
+2002,2,Invataturi din lumea naturii - John Bunyan
+2002,2,Pedagogia comunicarii - Laurentiu Soitu
+2002,2,Grammar and Vocabulary for Cambridge Advanced and Proficiency - Richard Side, Guy Wellman
+2002,2,Frumoasa Boldur - Victor Hugo
+2002,2,Verdeturi - Maurice Messegue
+2002,2,Ce Gatim, Cum Gatim - Henry-Paul Pellaprat
+2002,2,Profesia de relationist - Bernard Dagenais
+2002,2,Simple povesti - Rudyard Kipling
+2002,2,How to Teach Vocabulary - Scott Thornbury
+2002,2,Teatru - Dumitru Popovici
