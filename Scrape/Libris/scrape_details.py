@@ -205,7 +205,7 @@ def scrape_book_details():
                                     book_details['average_score'] = score or "null"
                                     book_details['votes'] = votes or "null"
                                     print(f"Found reviews - Score: {score}, Number of reviews: {votes}")
-                                    
+                            
                                 except:
                                     # If element not found, set default values
                                     print("No reviews found for this book")
@@ -280,9 +280,11 @@ def scrape_book_details():
                             continue
                         
                     except Exception as e:
-                        print(f"Error processing title: {e}")
+                        print(f"Error processing title.")
                         log_error(title, str(e))
                         save_progress(i + 1)  # Don't save runtime during errors
+                        print("Opening Libris.ro...")
+                        driver.get("https://www.libris.ro/")
                         continue
                     
                     time.sleep(1)  # Small delay between requests

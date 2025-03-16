@@ -34,6 +34,10 @@ def log_error(title):
     with open('Data\Carturesti\error_titles.txt', 'a', encoding='utf-8') as f:
         f.write(f"{title}\n")
 
+def clean_search_query(text):
+    # Remove percentage symbols
+    return text.replace('%', '')
+
 def scrape_book_details():
     edge_options = Options()
     edge_options.add_argument("--no-sandbox")
@@ -77,15 +81,22 @@ def scrape_book_details():
                 next(csv_reader)  # Skip header
                 lines = list(csv_reader)[start_line:]
                 
+                books_processed = 0  # Add counter at the start of processing
+
                 for i, row in enumerate(lines, start=start_line):
                     try:
+                           
                         # Unpack the row values
                         csv_title, csv_price, csv_author = row
-                        search_query = f"{csv_title} {csv_author}"
+                        # Clean the title and author before creating search query
+                        clean_title = clean_search_query(csv_title)
+                        clean_author = clean_search_query(csv_author)
+                        search_query = f"{clean_title} {clean_author}"
                         
                         print(f"\n{'='*50}")
                         print(f"Processing book {i+1}:")
-                        print(f"Title: {csv_title}")
+                        print(f"Original title: {csv_title}")
+                        print(f"Search query: {search_query}")
                         print(f"Author: {csv_author}")
                         print(f"{'='*50}")
                         
@@ -197,11 +208,14 @@ def scrape_book_details():
                             print("\nSaving to CSV...")
                             writer.writerow(book_details)
                             save_progress(i + 1)
+                            books_processed += 1  # Increment counter after successful processing
                             
                         except Exception as e:
                             print("Error processing book")
                             log_error(f"{csv_title} - {csv_author}")
                             save_progress(i + 1)
+                            print("Going to main page")
+                            driver.get("https://carturesti.ro/")
                             continue
                         
                         time.sleep(1)
