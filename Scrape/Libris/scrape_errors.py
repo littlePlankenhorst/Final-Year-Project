@@ -8,31 +8,34 @@ import time
 import json
 import os
 import csv
+import signal
+from datetime import datetime, timedelta
 
 def load_progress():
-    if os.path.exists('Scrape\Libris\errors_details_progress.json'):
-        with open('Scrape\Libris\errors_details_progress.json', 'r') as f:
+    if os.path.exists('Scrape\Libris\error_progress.json'):
+        with open('Scrape\Libris\error_progress.json', 'r') as f:
             data = json.load(f)
-            # Add default runtime if not present
             if 'total_runtime' not in data:
                 data['total_runtime'] = 0
             return data
     return {'last_processed_line': 0, 'total_runtime': 0}
 
-def save_progress(line_number, runtime):
+def save_progress(line_number, runtime=None):
     progress_data = load_progress()
     progress_data['last_processed_line'] = line_number
-    progress_data['total_runtime'] = progress_data.get('total_runtime', 0) + runtime
-    with open('Scrape\Libris\errors_details_progress.json', 'w') as f:
+    if runtime is not None:
+        progress_data['total_runtime'] = runtime
+    with open('Scrape\Libris\error_progress.json', 'w') as f:
         json.dump(progress_data, f)
 
-def log_error(title, error):
-    # Strip error message at first tab space
-    error = str(error).split('\t')[0]
-    with open('Data\Libris\waste.txt', 'a', encoding='utf-8') as f:
-        f.write(f"{title}\t{error}\n")
+def format_runtime(seconds):
+    return str(timedelta(seconds=int(seconds)))
 
-def scrape_book_details_errors():
+def log_waste(title):
+    with open('Data\Libris\waste.txt', 'a', encoding='utf-8') as f:
+        f.write(f"{title}\n")
+
+def scrape_error_books():
     edge_options = Options()
     edge_options.add_argument("--no-sandbox")
     edge_options.add_argument("--disable-dev-shm-usage")
@@ -40,88 +43,82 @@ def scrape_book_details_errors():
     driver = webdriver.Edge(options=edge_options)
     progress = load_progress()
     start_line = progress['last_processed_line']
+    previous_runtime = progress['total_runtime']
+    
+    start_time = time.time()
+    print(f"Previous total runtime: {format_runtime(previous_runtime)}")
     
     try:
-        # Open the main URL only once at the start
         print("Opening Libris.ro...")
         driver.get("https://www.libris.ro/")
         
         # Handle cookie popup
         try:
             print("Handling cookie popup...")
-            refuse_button = WebDriverWait(driver, 12).until(
+            refuse_button = WebDriverWait(driver, 5).until(
                 EC.presence_of_element_located((By.XPATH, "//a[text()='Refuz toate']"))
             )
             if refuse_button.is_displayed():
                 refuse_button.click()
-                time.sleep(3)  # Wait for newsletter popup
+                time.sleep(10)
         except:
             print("No cookie popup found or already handled")
         
         # Handle newsletter popup
         try:
             print("Handling newsletter popup...")
-            close_newsletter = WebDriverWait(driver, 20).until(
+            close_newsletter = WebDriverWait(driver, 5).until(
                 EC.element_to_be_clickable((By.CLASS_NAME, "modal-close-x-c-newsletter"))
             )
             if close_newsletter.is_displayed():
                 close_newsletter.click()
-                time.sleep(1)  # Wait for popup to close
+                time.sleep(1)
         except:
             print("No newsletter popup found or already handled")
 
-        with open('Data\Libris\error_book_details.csv', 'a', newline='', encoding='utf-8') as csvfile:
-            fieldnames = ['title', 'average_score', 'votes', 'price', 
+        with open('Data\Libris\\book_details.csv', 'a', newline='', encoding='utf-8') as csvfile:
+            fieldnames = ['year', 'page', 'title', 'average_score', 'votes', 'price', 
                          'categories', 'author', 'publisher', 'cover_type',
                          'publication_year', 'num_pages', 'format', 'code']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=';')
             
-            if os.path.getsize('Data\Libris\error_book_details.csv') == 0:
-                writer.writeheader()
-            
-            with open('Data\error_titles.txt', 'r', encoding='utf-8') as f:
+            with open('Data\Libris\error_titles.txt', 'r', encoding='utf-8') as f:
                 lines = f.readlines()[start_line:]
                 
                 for i, line in enumerate(lines, start=start_line):
-                    title = line
+                    title = line.strip()  # Error titles don't have year and page
                     print(f"\n{'='*50}")
                     print(f"Processing title {i+1}: {title}")
                     print(f"{'='*50}")
                     
                     try:
                         print("Searching for the book...")
-                        # Search for the book from current page
-                        search_box = WebDriverWait(driver, 10).until(
+                        search_box = WebDriverWait(driver, 5).until(
                             EC.presence_of_element_located((By.ID, "autoComplete"))
                         )
                         search_box.clear()
-                        time.sleep(1)  # Wait before typing
+                        time.sleep(1)
                         search_box.send_keys(title)
-                        time.sleep(0.5)  # Wait before pressing Enter
+                        time.sleep(0.5)
                         search_box.send_keys(Keys.RETURN)
                         
-                        # Wait for search results with longer timeout
-                        WebDriverWait(driver, 10).until(
+                        WebDriverWait(driver, 15).until(
                             EC.presence_of_element_located((By.CLASS_NAME, "pr-title-categ-pg"))
                         )
                         
-                        time.sleep(1)  # Wait for results to stabilize
+                        time.sleep(1)
                         
-                        # Find all results
                         results = driver.find_elements(By.CLASS_NAME, "pr-title-categ-pg")
                         
-                        # Find first exact match and its price
                         matching_result = None
                         for result in results:
                             if result.text.strip() == title.strip():
                                 matching_result = result
                                 try:
-                                    # Get the parent container and find the first anchor tag
                                     parent_container = result.find_element(By.XPATH, "./ancestor::div[contains(@class, 'pr-history-item')]")
                                     link = parent_container.find_element(By.TAG_NAME, "a")
                                     html_content = link.get_attribute('outerHTML')
                                     
-                                    # Extract price from data-price attribute
                                     if 'data-price="' in html_content:
                                         price = html_content.split('data-price="')[1].split('"')[0]
                                         print(f"Found price from search results: {price}")
@@ -136,21 +133,24 @@ def scrape_book_details_errors():
                         
                         if not matching_result:
                             print(f"No exact matches found for: {title}")
-                            log_error(title, "No exact matches found")
-                            save_progress(i + 1, 0)
+                            log_waste(title)
+                            save_progress(i + 1)
                             continue
                         
-                        # Process the matching result
                         try:
-                            # Wait for element to be clickable
-                            WebDriverWait(driver, 10).until(
+                            WebDriverWait(driver, 5).until(
                                 EC.element_to_be_clickable((By.CLASS_NAME, "pr-title-categ-pg"))
                             )
-                            time.sleep(1)  # Additional wait before clicking
+                            time.sleep(1)
                             matching_result.click()
                             
-                            # Initialize book_details
+                            wait = WebDriverWait(driver, 5)
+                            wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "pr-lista-detalii")))
+                            time.sleep(1)
+
                             book_details = {
+                                'year': "null",  # No year info in error titles
+                                'page': "null",  # No page info in error titles
                                 'title': title,
                                 'average_score': "null",
                                 'votes': "null",
@@ -165,39 +165,21 @@ def scrape_book_details_errors():
                                 'code': "null"
                             }
 
-                            # Wait for page to load
-                            wait = WebDriverWait(driver, 10)
-                            
-                            # Wait for the details list to be visible
-                            wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "pr-lista-detalii")))
-                            time.sleep(1)  # Wait for all elements to stabilize
-
                             # Get review data
                             try:
                                 print("Extracting review data...")
-                                try:
-                                    # Look for the feedback count element
-                                    feedback_element = wait.until(
-                                        EC.presence_of_element_located((By.CLASS_NAME, "pr-rg-feedback-count"))
-                                    )
-                                    feedback_text = feedback_element.text.strip()
-                                    
-                                    # Parse the text: "5 (1 review-uri)" -> score: "5", votes: "1"
-                                    score = feedback_text.split('(')[0].strip()
-                                    votes = feedback_text.split('(')[1].split('review')[0].strip()
-                                    
-                                    book_details['average_score'] = score or "null"
-                                    book_details['votes'] = votes or "null"
-                                    print(f"Found reviews - Score: {score}, Number of reviews: {votes}")
-                                    
-                                except:
-                                    # If element not found, set default values
-                                    print("No reviews found for this book")
-                                    book_details['average_score'] = "0"
-                                    book_details['votes'] = "0"
+                                feedback_element = wait.until(
+                                    EC.presence_of_element_located((By.CLASS_NAME, "pr-rg-feedback-count"))
+                                )
+                                feedback_text = feedback_element.text.strip()
+                                score = feedback_text.split('(')[0].strip()
+                                votes = feedback_text.split('(')[1].split('review')[0].strip()
                                 
-                            except Exception as e:
-                                print(f"Error processing review data: {str(e)}")
+                                book_details['average_score'] = score or "null"
+                                book_details['votes'] = votes or "null"
+                                print(f"Found reviews - Score: {score}, Number of reviews: {votes}")
+                            except:
+                                print("No reviews found for this book")
                                 book_details['average_score'] = "0"
                                 book_details['votes'] = "0"
 
@@ -208,14 +190,13 @@ def scrape_book_details_errors():
                                     EC.element_to_be_clickable((By.CLASS_NAME, "afiseaza-mai-mult"))
                                 )
                                 show_more.click()
-                                time.sleep(1)  # Wait for animation
+                                time.sleep(1)
                             except Exception as e:
                                 print(f"Could not expand details: {str(e)}")
 
-                            # Extract all details from list items
+                            # Extract details
                             print("Extracting book details...")
                             try:
-                                # Wait for list items to be visible
                                 items = wait.until(
                                     EC.presence_of_all_elements_located((By.CLASS_NAME, "pr-lista-item"))
                                 )
@@ -223,8 +204,6 @@ def scrape_book_details_errors():
                                 for item in items:
                                     try:
                                         text = item.text.strip()
-                                        
-                                        # Map the text to the corresponding field
                                         if "Categoria:" in text:
                                             book_details['categories'] = text.replace("Categoria:", "").strip()
                                         elif "Autor:" in text:
@@ -244,38 +223,54 @@ def scrape_book_details_errors():
                                     except Exception as e:
                                         print(f"Error processing item: {str(e)}")
                                         continue
-                                        
+
                             except Exception as e:
                                 print(f"Error extracting details: {str(e)}")
 
-                            # Print found details
                             print("\nFound book details:")
-                            print(f"Title: {title}")
                             for key, value in book_details.items():
-                                if value != "null" and key != 'title':
+                                if value != "null":
                                     print(f"{key.replace('_', ' ').title()}: {value}")
                             
                             print("\nSaving to CSV...")
                             writer.writerow(book_details)
-                            save_progress(i + 1, 0)
+                            save_progress(i + 1)
                             
                         except Exception as e:
                             print(f"Error processing match: {e}")
+                            log_waste(title)
                             continue
                         
                     except Exception as e:
-                        print(f"Error processing title: {e}")
-                        log_error(title, str(e))
-                        save_progress(i + 1, 0)
+                        print(f"Error processing title: {str(e)}")
+                        log_waste(title)
+                        save_progress(i + 1)
+                        # driver.get("https://www.libris.ro/")
                         continue
                     
-                    time.sleep(1)  # Small delay between requests
-                    
+                    time.sleep(1)
+
+    except KeyboardInterrupt:
+        print("\nScript interrupted by user!")
+        runtime = time.time() - start_time
+        total_runtime = previous_runtime + runtime
+        print(f"\nSession runtime: {format_runtime(runtime)}")
+        print(f"Total runtime: {format_runtime(total_runtime)}")
+        save_progress(i + 1, total_runtime)
+        
     except Exception as e:
         print(f"An error occurred: {e}")
+        runtime = time.time() - start_time
+        total_runtime = previous_runtime + runtime
+        save_progress(i + 1, total_runtime)
         
     finally:
+        runtime = time.time() - start_time
+        total_runtime = previous_runtime + runtime
+        print(f"\nSession runtime: {format_runtime(runtime)}")
+        print(f"Total runtime: {format_runtime(total_runtime)}")
+        save_progress(i + 1, total_runtime)
         driver.quit()
 
 if __name__ == "__main__":
-    scrape_book_details_errors() 
+    scrape_error_books() 
