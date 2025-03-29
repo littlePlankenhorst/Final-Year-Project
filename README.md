@@ -15,6 +15,7 @@ Three big online bookstores is present in the Romanian market, so I choosed to s
 The webscraping has two main part:
 1. scraping all the titles from the main page
 2. scraping every public data for each title
+   
 Since the websites are different and the accessible public data differs on books, the gathered data needs to be clustered. We are interested in the following data of a book:
 Bookstore, Title, Author, Price, Reviews, Score, Genres, Number of Pages, Publisher, Publishing Date, Cover Type, Language, Translator.
 
