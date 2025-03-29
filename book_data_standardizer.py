@@ -60,17 +60,66 @@ def convert_to_float(value: str) -> float:
     except (ValueError, TypeError):
         return np.nan
 
-def convert_to_int(value: str) -> int:
-    """Convert string to integer by cutting off decimal part."""
+def convert_to_clean_int(value: any) -> int:
+    """Convert value to clean integer without decimal part."""
     if pd.isna(value) or value == 'N/A':
         return np.nan
     try:
-        # First convert to float to handle decimal numbers
+        # First convert to float to handle any format
         float_val = float(str(value).replace(',', '.').strip())
-        # Then truncate decimal part
+        # Convert to int to remove decimal part
         return int(float_val)
     except (ValueError, TypeError):
         return np.nan
+
+def extract_publisher_and_year(publisher_text: str) -> Tuple[str, str]:
+    """Extract publisher name and year from Bookline publisher field."""
+    if pd.isna(publisher_text) or not isinstance(publisher_text, str):
+        return publisher_text, 'N/A'
+    
+    # Split by comma and take only the publisher part
+    parts = publisher_text.split(',')
+    if len(parts) > 1:
+        publisher = parts[0].strip()
+        # Try to extract year from the remaining part
+        year_match = re.search(r'\d{4}', parts[1])
+        year = year_match.group().strip() if year_match else 'N/A'
+        return publisher, year
+    return publisher_text, 'N/A'
+
+def clean_number(value: str) -> str:
+    """Remove .0 from number strings."""
+    if pd.isna(value) or value == 'N/A':
+        return value
+    # Check if string ends with .0
+    if str(value).endswith('.0'):
+        return str(value)[:-2]
+    return str(value)
+
+def process_bookline_categories(category_str: str) -> List[str]:
+    """Process Bookline categories string into list of categories."""
+    if pd.isna(category_str):
+        return [np.nan] * 4
+    
+    # Split by > and clean each category
+    categories = [cat.strip() for cat in str(category_str).split('>')]
+    
+    # Reverse the order and pad with NaN if needed
+    categories.reverse()
+    while len(categories) < 4:
+        categories.append(np.nan)
+    
+    return categories[:4]  # Return only first 4 categories
+
+def handle_invalid_format(cover_type: str) -> str:
+    """Return 'N/A' if format is invalid, otherwise return the original format."""
+    if pd.isna(cover_type) or not isinstance(cover_type, str):
+        return 'N/A'
+    
+    # Check if contains ISBN or starts with number
+    if 'ISBN' in cover_type or re.match(r'^\d', cover_type):
+        return 'N/A'
+    return cover_type
 
 def standardize_bookline_data(filepath: str) -> pd.DataFrame:
     """Standardize Bookline data according to common format."""
@@ -95,58 +144,52 @@ def standardize_bookline_data(filepath: str) -> pd.DataFrame:
     df['Title_Std'] = df['Title'].apply(standardize_text)
     df['Author_Std'] = df['Author'].apply(standardize_text)
     
-    # Map categories to genre fields (reversed order)
+    # Extract publisher and year
+    print("Extracting publisher and year...")
+    df[['Publisher', 'Publishing_Date']] = df.apply(
+        lambda x: extract_publisher_and_year(x['publisher']),
+        axis=1,
+        result_type='expand'
+    )
+    # Standardize publisher (after removing year)
+    df['Publisher_Std'] = df['Publisher'].apply(standardize_text)
+    
+    # Process categories
     print("Processing categories...")
-    categories = df['category'].str.split('>', expand=True)
-    if not categories.empty:
-        num_categories = len(categories.columns)
-        print(f"Found {num_categories} category levels")
-        # Reverse the order of categories
-        categories = categories[categories.columns[::-1]]
-        for i in range(4):
-            df[f'Genre{i+1}'] = categories[i] if i < len(categories.columns) else np.nan
-            df[f'Genre{i+1}_Std'] = df[f'Genre{i+1}'].apply(standardize_text)
+    df[['Genre1', 'Genre2', 'Genre3', 'Genre4']] = pd.DataFrame(
+        df['category'].apply(process_bookline_categories).tolist(),
+        index=df.index
+    )
+    
+    # Standardize genre fields
+    for i in range(1, 5):
+        df[f'Genre{i}_Std'] = df[f'Genre{i}'].apply(standardize_text)
     
     # Convert numeric fields
     print("Converting numeric fields...")
-    df['Price'] = df['price'].apply(convert_to_float)
+    df['Price'] = df['price'].apply(convert_to_clean_int)
     df['Score'] = df['score'].apply(convert_to_float)
-    df['Reviews'] = df['reviews'].apply(convert_to_int)
-    df['Number_Of_Pages'] = df['pages'].apply(convert_to_int)
+    df['Reviews'] = df['reviews'].apply(convert_to_clean_int)
+    df['Number_Of_Pages'] = df['pages'].apply(convert_to_clean_int).apply(clean_number)
+    df['Publishing_Date'] = df['Publishing_Date'].apply(clean_number)
     
     # Map remaining fields
-    df['Publisher'] = df['publisher']
-    df['Publisher_Std'] = df['Publisher'].apply(standardize_text)
-    df['Cover_Type'] = df['edition']
+    df['Cover_Type'] = df['edition'].apply(handle_invalid_format)
     df['Cover_Type_Std'] = df['Cover_Type'].apply(standardize_text)
     df['Language'] = df['language']
     df['Language_Std'] = df['Language'].apply(standardize_text)
     df['Translator'] = 'N/A'
-    df['Publishing_Date'] = 'N/A'
     
     # Print some statistics
     print("\nBookline Statistics:")
     print(f"Total books: {len(df)}")
     print(f"Unique authors: {df['Author'].nunique()}")
     print(f"Unique publishers: {df['Publisher'].nunique()}")
+    print(f"Books with publishing date: {df['Publishing_Date'].ne('N/A').sum()}")
     print(f"Average price: {df['Price'].mean():.2f}")
     print(f"Average rating: {df['Score'].mean():.2f}")
     
     return df[columns]
-
-def fix_carturesti_price(price: str) -> float:
-    """Fix Carturesti prices that incorrectly start with zero."""
-    if pd.isna(price) or price == 'N/A':
-        return np.nan
-    try:
-        price_float = float(str(price).replace(',', '.').strip())
-        if 0 < price_float < 1:  # If price starts with 0 (like 0.38)
-            # Extract the first non-zero digit and create new price
-            digits = str(price_float).replace('0.', '')
-            return float(f"{digits}.{digits}")
-        return price_float
-    except (ValueError, TypeError):
-        return np.nan
 
 def standardize_carturesti_data(filepath: str) -> pd.DataFrame:
     """Standardize Carturesti data according to common format."""
@@ -176,17 +219,17 @@ def standardize_carturesti_data(filepath: str) -> pd.DataFrame:
         df[f'Genre{i}_Std'] = df[f'Genre{i}'].apply(standardize_text)
     
     # Convert numeric fields with fixes
-    df['Price'] = df['price'].apply(fix_carturesti_price)
+    df['Price'] = df['price'].apply(convert_to_clean_int)
     df['Score'] = df['score'].apply(convert_to_float)
-    df['Reviews'] = df['reviews'].apply(convert_to_int)
-    df['Number_Of_Pages'] = df['pages'].apply(convert_to_int)
+    df['Reviews'] = df['reviews'].apply(convert_to_clean_int)
+    df['Number_Of_Pages'] = df['pages'].apply(convert_to_clean_int).apply(clean_number)
+    df['Publishing_Date'] = df['publish_date'].apply(clean_number)
     
     # Map remaining fields
     df['Publisher'] = df['publisher']
     df['Publisher_Std'] = df['Publisher'].apply(standardize_text)
-    df['Cover_Type'] = df['edition']
+    df['Cover_Type'] = df['edition'].apply(handle_invalid_format)
     df['Cover_Type_Std'] = df['Cover_Type'].apply(standardize_text)
-    df['Publishing_Date'] = df['publish_date']
     df['Language'] = df['language']
     df['Language_Std'] = df['Language'].apply(standardize_text)
     df['Translator'] = df['translator']
@@ -230,16 +273,16 @@ def standardize_libris_data(filepath: str) -> pd.DataFrame:
         df[f'Genre{i+1}_Std'] = df[f'Genre{i+1}'].apply(standardize_text)
     
     # Convert numeric fields
-    df['Price'] = df['price'].apply(convert_to_float)
+    df['Price'] = df['price'].apply(convert_to_clean_int)
     df['Score'] = df['average_score'].apply(convert_to_float)
-    df['Reviews'] = df['votes'].apply(convert_to_int)
-    df['Number_Of_Pages'] = df['num_pages'].apply(convert_to_int)
-    df['Publishing_Date'] = df['publication_year'].apply(convert_to_int)
+    df['Reviews'] = df['votes'].apply(convert_to_clean_int)
+    df['Number_Of_Pages'] = df['num_pages'].apply(convert_to_clean_int).apply(clean_number)
+    df['Publishing_Date'] = df['publication_year'].apply(convert_to_clean_int).apply(clean_number)
     
     # Map remaining fields
     df['Publisher'] = df['publisher']
     df['Publisher_Std'] = df['Publisher'].apply(standardize_text)
-    df['Cover_Type'] = df['cover_type']
+    df['Cover_Type'] = df['cover_type'].apply(handle_invalid_format)
     df['Cover_Type_Std'] = df['Cover_Type'].apply(standardize_text)
     df['Language'] = 'N/A'
     df['Language_Std'] = df['Language'].apply(standardize_text)
@@ -257,54 +300,76 @@ def standardize_libris_data(filepath: str) -> pd.DataFrame:
 
 def create_unique_lists(df: pd.DataFrame) -> Dict[str, pd.DataFrame]:
     """Create unique lists for Authors, Categories, Publishers, and Formats."""
-    unique_lists = {
-        'authors': pd.DataFrame({
-            'Author': pd.Series(df['Author'].dropna().unique()),
-            'Author_Std': pd.Series(df['Author_Std'].dropna().unique())
-        }),
-        'publishers': pd.DataFrame({
-            'Publisher': pd.Series(df['Publisher'].dropna().unique()),
-            'Publisher_Std': pd.Series(df['Publisher_Std'].dropna().unique())
-        }),
-        'formats': pd.DataFrame({
-            'Format': pd.Series(df['Cover_Type'].dropna().unique()),
-            'Format_Std': pd.Series(df['Cover_Type_Std'].dropna().unique())
-        })
-    }
+    # Handle authors - keep first occurrence of each standardized author
+    authors_df = pd.DataFrame({
+        'Author': df['Author'],
+        'Author_Std': df['Author_Std']
+    }).drop_duplicates(subset=['Author_Std'], keep='first')
     
-    # Handle categories separately as they're spread across multiple columns
-    all_categories = []
-    for i in range(1, 5):
-        all_categories.extend(df[f'Genre{i}'].dropna().unique())
+    publishers_df = pd.DataFrame({
+        'Publisher': df['Publisher'],
+        'Publisher_Std': df['Publisher_Std']
+    }).drop_duplicates()
     
-    unique_lists['categories'] = pd.DataFrame({
-        'Category': pd.Series(list(set(all_categories))),
-        'Category_Std': pd.Series(list(set(all_categories))).apply(standardize_text)
+    # Handle formats - exclude N/A and "Szállító"
+    formats_df = pd.DataFrame({
+        'Format': df['Cover_Type'],
+        'Format_Std': df['Cover_Type_Std']
     })
+    formats_df = formats_df[
+        (formats_df['Format'] != 'N/A') & 
+        ~formats_df['Format'].str.contains('Szállító', na=False)
+    ].drop_duplicates()
     
-    return unique_lists
+    # Handle categories - clean spaces and drop duplicates
+    all_categories = []
+    all_categories_std = []
+    for i in range(1, 5):
+        valid_categories = df[['Genre' + str(i), 'Genre' + str(i) + '_Std']].dropna()
+        all_categories.extend(valid_categories['Genre' + str(i)].str.strip())
+        all_categories_std.extend(valid_categories['Genre' + str(i) + '_Std'])
+    
+    categories_df = pd.DataFrame({
+        'Category': pd.Series(all_categories),
+        'Category_Std': pd.Series(all_categories_std)
+    }).drop_duplicates()
+    
+    return {
+        'authors': authors_df,
+        'publishers': publishers_df,
+        'formats': formats_df,
+        'categories': categories_df
+    }
 
 def save_unique_lists(unique_lists: Dict[str, pd.DataFrame], output_dir: str):
     """Save unique lists to CSV files."""
     for name, df in unique_lists.items():
-        df.to_csv(f'{output_dir}/{name}.csv', index=False, encoding='utf-8')
+        df.to_csv(f'{output_dir}/{name}.csv', index=False, encoding='utf-8', sep=';')
 
-# Modify the main execution to include overall statistics
+def save_invalid_formats(df: pd.DataFrame, output_dir: str):
+    """Save records with invalid formats to a separate file."""
+    invalid_formats = df[~df['Cover_Type'].apply(lambda x: x != 'N/A')]
+    if len(invalid_formats) > 0:
+        invalid_formats.to_csv(f'{output_dir}/invalid_formats.csv', 
+                             index=False, encoding='utf-8', sep=';')
+        print(f"Saved {len(invalid_formats)} invalid format records to invalid_formats.csv")
+
+# Modify the main execution
 if __name__ == "__main__":
     print("Starting data standardization process...")
     
     # Standardize data from each source
     bookline_df = standardize_bookline_data('Data\Bookline\\book_details.csv')
     print("Saving Bookline standardized data...")
-    bookline_df.to_csv('Data\Bookline\standardized.csv')
+    bookline_df.to_csv('Data\Bookline\standardized.csv', sep=';')
     
     carturesti_df = standardize_carturesti_data('Data\Carturesti\\book_details_unique.csv')
     print("Saving Carturesti standardized data...")
-    carturesti_df.to_csv('Data\Carturesti\standardized.csv')
+    carturesti_df.to_csv('Data\Carturesti\standardized.csv', sep=';')
     
     libris_df = standardize_libris_data('Data\Libris\\book_details_unique.csv')
     print("Saving Libris standardized data...")
-    libris_df.to_csv('Data\Libris\standardized.csv')
+    libris_df.to_csv('Data\Libris\standardized.csv', sep=';')
     
     # Combine all data
     print("\nCombining all data...")
@@ -314,12 +379,13 @@ if __name__ == "__main__":
     print("\nOverall Statistics:")
     print(f"Total books: {len(all_books)}")
     print(f"Books per store:")
-    print(f"  Bookline: {len(bookline_df)}")
-    print(f"  Carturesti: {len(carturesti_df)}")
-    print(f"  Libris: {len(libris_df)}")
-    print(f"Unique authors across all stores: {all_books['Author'].nunique()}")
-    print(f"Unique publishers across all stores: {all_books['Publisher'].nunique()}")
-    print(f"Average price across all stores: {all_books['Price'].mean():.2f}")
+    print(f"  Bookline: {len(all_books[all_books['ID'].str.startswith('B')])}")
+    print(f"  Carturesti: {len(all_books[all_books['ID'].str.startswith('C')])}")
+    print(f"  Libris: {len(all_books[all_books['ID'].str.startswith('L')])}")
+    print(f"Unique authors: {all_books['Author'].nunique()}")
+    print(f"Unique publishers: {all_books['Publisher'].nunique()}")
+    print(f"Average price: {all_books['Price'].mean():.2f}")
+    print(f"Books with valid format: {(all_books['Cover_Type'] != 'N/A').sum()}")
     
     # Create and save unique lists
     print("\nCreating unique lists...")
@@ -329,6 +395,6 @@ if __name__ == "__main__":
     
     # Save standardized data
     print("Saving combined standardized data...")
-    all_books.to_csv('Data/standardized_books.csv', index=False, encoding='utf-8')
+    all_books.to_csv('Data/standardized_books.csv', index=False, encoding='utf-8', sep=';')
     
     print("\nData standardization complete!") 
