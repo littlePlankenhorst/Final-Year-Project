@@ -95,7 +95,7 @@ def scrape_book_details():
                         search_box.send_keys(Keys.RETURN)
                         
                         # Wait for results and click first match
-                        first_result = WebDriverWait(driver, 15).until(
+                        first_result = WebDriverWait(driver, 5).until(
                             EC.presence_of_element_located((By.CLASS_NAME, "c-product-title"))
                         )
                         first_result.click()
@@ -142,7 +142,7 @@ def scrape_book_details():
                         
                         # Extract price
                         try:
-                            price_element = WebDriverWait(driver, 10).until(
+                            price_element = WebDriverWait(driver, 5).until(
                                 EC.presence_of_element_located(
                                     (By.XPATH, "//p[@class='o-prices-block__price1']//span[@class='price']")
                                 )
