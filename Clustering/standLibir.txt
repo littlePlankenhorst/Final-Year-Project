@@ -1,0 +1,209 @@
+1. **Memoárok, naplók** - **Életrajzok, Memoárok, Naplók**
+2. **Angol nyelvű könyvek** - **Idegen Nyelvű Könyvek**
+3. **Román irodalom** - **Román Irodalom**
+4. **Szociológia** - **Társadalomtudományok**
+5. **Szépirodalom idegen nyelveken** - **Szépirodalom idegen nyelveken**
+6. **Ortodox könyvek** - **Vallás**
+7. **A románok történelme** - **Román Történelem**
+8. **Szerelmes regények** - **Szépirodalom**
+9. **Kortárs irodalom** - **Kortárs Irodalom**
+10. **Pszichológia** - **Pszichológia**
+11. **Orvostudomány** - **Orvostudomány**
+12. **Világirodalom** - **Világirodalom**
+13. **Sci-Fi & Fantasy** - **Sci-Fi & Fantasy**
+14. **Gasztronómia** - **Gasztronómia**
+15. **Alternatív terápiák** - **Alternatív Terápiák**
+16. **Thriller könyvek** - **Thriller**
+17. **Italok** - **Italok**
+18. **Történelem** - **Történelem**
+19. **Segédgyűjtemények** - **Tudományos Segédanyagok**
+20. **Mágia** - **Vallás, Mágia**
+21. **Építészet** - **Építészet**
+22. **Atlaszok** - **Atlaszok**
+23. **Irodalomkritika** - **Irodalomkritika**
+24. **Világtörténelem** - **Világtörténelem**
+25. **Gyakorlati könyvek gyerekeknek** - **Gyerekek, Oktatás**
+26. **Diéták** - **Diéták**
+27. **Lelki fejlődés** - **Lelki Fejlődés, Személyiségfejlesztés**
+28. **Általános műveltség** - **Tudományos Ismeretterjesztés**
+29. **Civilizációk, mitológia** - **Mitológia, Civilizációk**
+30. **Növények, kertészet** - **Kertészet, Növények**
+31. **Költészet** - **Költészet**
+32. **Óvodai könyvek** - **Gyerekek**
+33. **Oktatási könyvek** - **Oktatás**
+34. **Filológia** - **Nyelvészet**
+35. **Művészet** - **Művészetek**
+36. **Gyermekkönyvek idegen nyelveken** - **Gyerekek, Idegen Nyelvű Könyvek**
+37. **Mesék** - **Gyerekek**
+38. **Orvosi könyvek mindenkinek** - **Orvostudomány**
+39. **Rajz, zene, film, színház** - **Művészetek**
+40. **Életrajzok** - **Életrajzok, Memoárok**
+41. **Etnológia** - **Társadalomtudományok**
+42. **Atlaszok, enciklopédiák** - **Atlaszok, Enciklopédiák**
+43. **Egyetemes filozófia** - **Filozófia**
+44. **Állatok, madarak** - **Állatok, Természet**
+45. **Kommunikáció, újságírás** - **Kommunikáció, Média**
+46. **Amerikai irodalom** - **Amerikai Irodalom**
+47. **Pedagógia, módszertan** - **Oktatás**
+48. **Mérnöki tudományok** - **Mérnöki Tudományok**
+49. **Parapszichológia** - **Pszichológia, Parapszichológia**
+50. **Jogi könyvek** - **Jogi Ismeretek**
+51. **Jogszabályok** - **Jogi Ismeretek**
+52. **Románia albumai** - **Román Történelem**
+53. **Kommunikáció, reklám** - **Kommunikáció, Média**
+54. **Szakmai fejlődés** - **Szakmai Fejlődés**
+55. **Paranormális jelenségek** - **Vallás, Paranormális**
+56. **Kereszténység** - **Vallás**
+57. **Idegen nyelvű könyvek gyerekeknek** - **Gyerekek, Idegen Nyelvű Könyvek**
+58. **Elme és test kapcsolata** - **Pszichológia, Test és Lélek**
+59. **Gótikus regények** - **Szépirodalom, Gótikus Irodalom**
+60. **Egyéb** - **Egyéb**
+61. **Francia nyelvű könyvek** - **Francia Nyelvű Könyvek**
+62. **Angol irodalom** - **Angol Irodalom**
+63. **Politika** - **Politika**
+64. **Nemzetközi kapcsolatok** - **Politika, Nemzetközi Kapcsolatok**
+65. **Sport** - **Sport**
+66. **Spiritualitás** - **Vallás, Spiritualitás**
+67. **Ajándékkönyvek** - **Ajándékok**
+68. **Német nyelvű könyvek** - **Német Nyelvű Könyvek**
+69. **Japán irodalom** - **Japán Irodalom**
+70. **Masszázs, relaxáció** - **Alternatív Terápiák, Relaxáció**
+71. **Táplálkozás, egészség** - **Táplálkozás, Egészség**
+72. **Titkos történelem** - **Történelem, Titkos Történelem**
+73. **Asztrológia** - **Vallás, Asztrológia**
+74. **Szexualitás** - **Életmód, Szexualitás**
+75. **Gyermekkönyvek** - **Gyerekek**
+76. **Publicisztika** - **Publicisztika**
+77. **Gyakorlati pszichológia** - **Pszichológia**
+78. **Vegyes témák** - **Vegyes Témák**
+79. **Olasz nyelvű könyvek** - **Olasz Nyelvű Könyvek**
+80. **Lelki fejlődés** - **Lelki Fejlődés**
+81. **Szoftverek** - **Informatika, Szoftverek**
+82. **Román nyelvű szótárak** - **Nyelvészet**
+83. **Versek** - **Költészet**
+84. **Román filozófia** - **Filozófia, Román Filozófia**
+85. **Novellák** - **Szépirodalom, Novellák**
+86. **Kalandregények** - **Szépirodalom, Kalandregények**
+87. **Politikai gazdaságtan** - **Politika, Politikai Gazdaságtan**
+88. **Genetika, biológia** - **Tudományok, Biológia**
+89. **Ifjúsági könyvek** - **Gyerekek, Ifjúsági Irodalom**
+90. **Üzletfejlesztés** - **Üzlet, Fejlesztés**
+91. **Spanyol nyelvű könyvek** - **Spanyol Nyelvű Könyvek**
+92. **Zenei partitúrák** - **Művészetek, Zene**
+93. **Életstílus** - **Életmód**
+94. **Keleti vallások** - **Vallás, Keleti Vallások**
+95. **Klasszikus irodalom** - **Szépirodalom, Klasszikus Irodalom**
+96. **11. osztályos tankönyvek** - **Oktatás, Tankönyvek**
+97. **1. osztályos tankönyvek** - **Oktatás, Tankönyvek**
+98. **Civilizációk** - **Történelem, Civilizációk**
+99. **Turisztikai útmutatók** - **Turizmus**
+100. **Színház** - **Művészetek, Színház**
+101. **Tudomány és filozófia** - **Tudományok, Filozófia**
+102. **Fényképezés művészete** - **Művészetek, Fényképezés**
+103. **Pszichometriai tesztek** - **Pszichológia, Tesztelés**
+104. **Francia irodalom** - **Francia Irodalom**
+105. **Praktikus tanácsok** - **Életmód, Praktikus Tanácsok**
+106. **Tevékenységeket tartalmazó könyvek** - **Gyerekek, Tevékenység**
+107. **Környezeti turizmus** - **Turizmus**
+108. **Térképek** - **Térképek**
+109. **Barkácsolás** - **Életmód, Barkácsolás**
+110. **Fantasy irodalom** - **Szépirodalom, Fantasy**
+111. **Kifestők** - **Gyerekek, Kifestők**
+112. **9. osztályos tankönyvek** - **Oktatás, Tankönyvek**
+113. **Terhesség** - **Család, Terhesség**
+114. **Nordic noir regények** - **Szépirodalom, Nordic Noir**
+115. **Pénzügyek, bankok** - **Üzlet, Pénzügyek**
+116. **Földrajz, topográfia** - **Tudományok, Földrajz**
+117. **Esszék** - **Irodalom, Esszék**
+118. **Török irodalom** - **Török Irodalom**
+119. **Portugál irodalom** - **Portugál Irodalom**
+120. **Történelmi regények** - **Szépirodalom, Történelmi Regények**
+121. **Oktatás és pszichológia** - **Oktatás, Pszichológia**
+122. **Gyerekeknek szóló enciklopédiák** - **Gyerekek, Enciklopédiák**
+123. **Chiromantia (karmakönyv)** - **Vallás, Asztrológia**
+124. **Fantasy regények** - **Szépirodalom, Fantasy**
+125. **Menedzsment** - **Üzlet, Menedzsment**
+126. **Számvitel** - **Üzlet, Számvitel**
+127. **Cseh irodalom** - **Cseh Irodalom**
+128. **Idézetek** - **Irodalom, Idézetek**
+129. **Folyóiratok** - **Folyóiratok**
+130. **Spanyol irodalom** - **Spanyol Irodalom**
+131. **Káblás tanok** - **Vallás, Filozófia**
+132. **Mesei tanulságok** - **Gyerekek**
+133. **Enciklopédiák** - **Enciklopédiák**
+134. **Mitológiai és történelmi regények** - **Szépirodalom, Mitológiai Regények**
+135. **CD mellékletet tartalmazó könyvek** - **Zene, Képregények**
+136. **Hardverek** - **Informatika, Hardverek**
+137. **Horror könyvek** - **Horror**
+138. **Oktató játékok** - **Oktatás, Játékok**
+139. **Lengyel irodalom** - **Lengyel Irodalom**
+140. **Humor** - **Humor**
+141. **Ortodox tanítások** - **Vallás, Ortodoxia**
+142. **Chilei irodalom** - **Chilei Irodalom**
+143. **3D könyvek** - **Technológia, 3D**
+144. **Osztrák irodalom** - **Osztályos Irodalom**
+145. **Előkészítő osztályos tankönyvek** - **Oktatás**
+146. **Matricás könyvek** - **Gyerekek, Matricák**
+147. **Statisztika** - **Tudományok, Statisztika**
+148. **Orosz irodalom** - **Orosz Irodalom**
+149. **Szépirodalom** - **Szépirodalom**
+150. **Marketing** - **Üzlet, Marketing**
+151. **Naplók** - **Memoárok, Naplók**
+152. **Kanadai irodalom** - **Kanadai Irodalom**
+153. **Német irodalom** - **Német Irodalom**
+154. **Naptárak** - **Ajándékok, Naptárak**
+155. **Krimi könyvek** - **Krimi**
+156. **Nyári szünidei füzetek** - **Gyerekek, Tanulás**
+157. **Erotikus könyvek** - **Szépirodalom, Erotika**
+
+
+158. **Magyar nyelvű könyvek** - **Magyar Nyelvű Könyvek**
+159. **Fényképezés** - **Művészetek, Fényképezés**
+160. **Holokausztról inspirált regények** - **Történelem, Holokauszt**
+161. **Kolumbiai irodalom** - **Kolumbiai Irodalom**
+162. **Numerológia** - **Asztrológia, Numerológia**
+163. **Személyiségfejlesztés** - **Személyiségfejlesztés**
+164. **Ausztrál irodalom** - **Ausztrál Irodalom**
+165. **Hangoskönyvek** - **Hangoskönyvek**
+166. **Olasz irodalom** - **Olasz Irodalom**
+167. **Könyvek** - **Könyvek**
+168. **Finn irodalom** - **Finn Irodalom**
+169. **Érzelmi intelligencia** - **Pszichológia, Érzelmi Intelligencia**
+170. **Tarot kártyák** - **Vallás, Tarot**
+171. **Magyar nyelv** - **Magyar Nyelv**
+172. **Gyakorlat** - **Oktatás**
+173. **Meditatív művészetek** - **Művészetek, Meditáció**
+174. **Álmok** - **Pszichológia, Álmok**
+175. **Képregények** - **Képregények**
+176. **A kapcsolatok pszichológiája** - **Pszichológia**
+177. **Közlekedési jogszabályok** - **Jogi Ismeretek**
+178. **Könyvjelzők** - **Ajándékok**
+179. **Sci-Fi regények** - **Szépirodalom, Sci-Fi**
+180. **Üzlet** - **Üzlet**
+181. **Szépirodalom** - **Szépirodalom**
+182. **Játékos könyvek** - **Gyerekek**
+183. **Hangos könyvek** - **Hangoskönyvek**
+184. **Élelmiszeripar** - **Élelmiszeripar**
+185. **Gyermeknevelés** - **Család, Gyermeknevelés**
+186. **Koreai irodalom** - **Koreai Irodalom**
+187. **Baba albumok** - **Család, Baba Albumok**
+188. **Kétnyelvű könyvek** - **Idegen Nyelvű Könyvek**
+189. **Disztópikus regények** - **Szépirodalom, Disztópikus Irodalom**
+190. **Általános** - **Általános**
+191. **Dizájn** - **Művészetek, Dizájn**
+192. **Norvég irodalom** - **Norvég Irodalom**
+193. **Dán irodalom** - **Dán Irodalom**
+194. **Fogadd el magad** - **Pszichológia, Személyiségfejlesztés**
+195. **Argentín irodalom** - **Argentín Irodalom**
+196. **Izraeli irodalom** - **Izraeli Irodalom**
+197. **Autó-motor** - **Autó, Motor**
+198. **Vinyl** - **Zene, Vinyl**
+199. **Grafikus regény** - **Képregények**
+200. **Holland irodalom** - **Holland Irodalom**
+201. **Puzzles** - **Játékok**
+202. **Vallás** - **Vallás**
+203. **Balett** - **Művészetek, Balett**
+204. **Technológia** - **Technológia**
+205. **Gasztronómiai művészet** - **Gasztronómia**
+206. **Járatok** - **Utazás**
+207. **Film** - **Művészetek, Film** 
