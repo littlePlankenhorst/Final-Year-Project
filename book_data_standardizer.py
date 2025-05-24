@@ -5,10 +5,9 @@ from typing import Dict, List, Tuple
 import numpy as np
 
 columns = ['ID', 'Title', 'Title_Std', 'Author', 'Author_Std', 'Price', 'Reviews', 
-            'Score', 'Genre1', 'Genre1_Std', 'Genre2', 'Genre2_Std', 'Genre3', 
-            'Genre3_Std', 'Genre4', 'Genre4_Std', 'Number_Of_Pages', 'Publisher', 
-            'Publisher_Std', 'Cover_Type', 'Cover_Type_Std', 'Publishing_Date', 
-            'Language', 'Language_Std', 'Translator']
+            'Score', 'Number_Of_Pages', 'Genre1', 'Genre2', 'Genre3', 'Genre4', 'Genre5', 'Genre6',
+            'First_Genre', 'Last_Genre', 'Category_ID', 'Publisher', 'Publisher_Std', 
+            'Cover_Type', 'Publishing_Date', 'Language', 'Translator']
 
 def remove_accents(text: str) -> str:
     """Remove accents from text while preserving base characters."""
@@ -96,20 +95,23 @@ def clean_number(value: str) -> str:
         return str(value)[:-2]
     return str(value)
 
-def process_bookline_categories(category_str: str) -> List[str]:
-    """Process Bookline categories string into list of categories."""
+def process_bookline_categories(category_str: str) -> Tuple[List[str], str, str]:
+    """Process Bookline categories string into list of categories and extract first/last."""
     if pd.isna(category_str):
-        return [np.nan] * 4
+        return [np.nan] * 6, np.nan, np.nan
     
     # Split by > and clean each category
     categories = [cat.strip() for cat in str(category_str).split('>')]
     
-    # Reverse the order and pad with NaN if needed
-    categories.reverse()
-    while len(categories) < 4:
+    # Get first and last genre
+    first_genre = categories[1] if categories else np.nan
+    last_genre = categories[-1] if categories else np.nan
+    
+    # Pad with NaN if needed
+    while len(categories) < 6:
         categories.append(np.nan)
     
-    return categories[:4]  # Return only first 4 categories
+    return categories[:6], first_genre, last_genre  # Return first 6 categories and first/last
 
 def handle_invalid_format(cover_type: str) -> str:
     """Return 'N/A' if format is invalid, otherwise return the original format."""
@@ -121,6 +123,28 @@ def handle_invalid_format(cover_type: str) -> str:
         return 'N/A'
     return cover_type
 
+def trim_string(text: str) -> str:
+    """Remove leading and trailing whitespace from text."""
+    if pd.isna(text) or not isinstance(text, str):
+        return text
+    return text.strip()
+
+def generate_category_id(genres: List[str]) -> str:
+    """Generate category ID from genre list by taking first two characters of each genre."""
+    if not genres or all(pd.isna(g) for g in genres):
+        return 'N/A'
+    
+    # Take first two characters of each non-empty genre
+    id_parts = []
+    for genre in reversed(genres):
+        if pd.notna(genre) and isinstance(genre, str):
+            # Take first two characters, handle special characters
+            first_two = ''.join(c for c in genre[:6] if c.isalnum())
+            if first_two:
+                id_parts.append(first_two)
+    
+    return ''.join(id_parts) if id_parts else 'N/A'
+
 def standardize_bookline_data(filepath: str) -> pd.DataFrame:
     """Standardize Bookline data according to common format."""
     print("\nProcessing Bookline data...")
@@ -128,6 +152,22 @@ def standardize_bookline_data(filepath: str) -> pd.DataFrame:
     # Read CSV and handle mixed types warning
     df = pd.read_csv(filepath, sep=';', low_memory=False)
     print(f"Found {len(df)} books in Bookline")
+    
+    # Trim all string columns
+    for col in df.columns:
+        if df[col].dtype == 'object':
+            df[col] = df[col].apply(trim_string)
+    
+    # Filter out non-book records and save them
+    non_books = df[~df['category'].str.contains('Könyv', na=False)]
+    if len(non_books) > 0:
+        print(f"Found {len(non_books)} non-book records")
+        non_books.to_csv('Data/noBook.csv', index=False, sep=';', encoding='utf-8')
+        print("Saved non-book records to noBook.csv")
+    
+    # Keep only book records
+    df = df[df['category'].str.contains('Könyv', na=False)]
+    print(f"Processing {len(df)} book records")
     
     # Generate IDs
     df['ID'] = [generate_book_id('B', i) for i in range(len(df))]
@@ -139,6 +179,45 @@ def standardize_bookline_data(filepath: str) -> pd.DataFrame:
         axis=1, 
         result_type='expand'
     )
+    
+    # Clean Bookline authors according to new rules
+    def clean_bookline_author(author: str) -> str:
+        if pd.isna(author) or not isinstance(author, str):
+            return author
+            
+        # Remove content in brackets
+        author = re.sub(r'\([^)]*\)', '', author)
+        
+        # Remove special cases
+        author = author.replace('...', '')
+        author = author.replace('SZERZŐ', '')
+        author = author.replace('Szerkesztette:', '')
+        author = author.replace('Szerkesztette', '')
+        author = author.replace('Összeállította', '')
+        author = author.replace('Össz.:', '')
+        author = author.replace('Össz.', '')
+        
+        # Split by 'és' or 'and' and join with comma
+        author = re.sub(r'\s+és\s+', ', ', author)
+        author = re.sub(r'\s+and\s+', ', ', author)
+        
+        # Remove numbers
+        author = re.sub(r'\d+', '', author)
+        
+        # Remove names starting with non-capital letters (except special cases)
+        words = author.split()
+        cleaned_words = []
+        for word in words:
+            if (word[0].isupper() or 
+                word.lower() in ['von', 'van', 'der', 'de', 'gróf', 'dr'] or
+                word.lower().startswith('van der')):
+                cleaned_words.append(word)
+        author = ' '.join(cleaned_words)
+        
+        return trim_string(author)
+    
+    # Apply author cleaning
+    df['Author'] = df['Author'].apply(clean_bookline_author)
     
     # Create standardized fields
     df['Title_Std'] = df['Title'].apply(standardize_text)
@@ -156,38 +235,47 @@ def standardize_bookline_data(filepath: str) -> pd.DataFrame:
     
     # Process categories
     print("Processing categories...")
-    df[['Genre1', 'Genre2', 'Genre3', 'Genre4']] = pd.DataFrame(
-        df['category'].apply(process_bookline_categories).tolist(),
+    category_results = df['category'].apply(process_bookline_categories)
+    df[['Genre1', 'Genre2', 'Genre3', 'Genre4', 'Genre5', 'Genre6']] = pd.DataFrame(
+        [r[0] for r in category_results],
         index=df.index
     )
+    df['First_Genre'] = [r[1] for r in category_results]
+    df['Last_Genre'] = [r[2] for r in category_results]
     
-    # Standardize genre fields
-    for i in range(1, 5):
-        df[f'Genre{i}_Std'] = df[f'Genre{i}'].apply(standardize_text)
+    # Generate category IDs and create mapping
+    print("Generating category IDs...")
+    df['Category_ID'] = df.apply(
+        lambda x: generate_category_id([x['Genre1'], x['Genre2'], x['Genre3'], 
+                                      x['Genre4'], x['Genre5'], x['Genre6']]),
+        axis=1
+    )
+    
+    # Create and save category mapping
+    category_mapping = df[['Category_ID', 'category']].drop_duplicates()
+    category_mapping.columns = ['Category_ID', 'Category_Path']
+    category_mapping.to_csv('Data/category_mapping.csv', index=False, sep=';', encoding='utf-8')
+    print(f"Saved {len(category_mapping)} unique category mappings to category_mapping.csv")
     
     # Convert numeric fields
     print("Converting numeric fields...")
-    df['Price'] = df['price'].apply(convert_to_clean_int)
     df['Score'] = df['score'].apply(convert_to_float)
     df['Reviews'] = df['reviews'].apply(convert_to_clean_int)
     df['Number_Of_Pages'] = df['pages'].apply(convert_to_clean_int).apply(clean_number)
     df['Publishing_Date'] = df['Publishing_Date'].apply(clean_number)
+    df['Price'] = df['price'].apply(convert_to_float)  # Map price from input data
     
     # Map remaining fields
     df['Cover_Type'] = df['edition'].apply(handle_invalid_format)
-    df['Cover_Type_Std'] = df['Cover_Type'].apply(standardize_text)
-    df['Language'] = df['language']
-    df['Language_Std'] = df['Language'].apply(standardize_text)
+    # Remove "Szállító" from cover types
+    df['Cover_Type'] = df['Cover_Type'].apply(lambda x: 'N/A' if pd.isna(x) or not isinstance(x, str) or x.startswith('Szállító') else x)
+    df['Language'] = df['language'].apply(lambda x: 'magyar' if pd.notna(x) and str(x).lower() == 'magyar' else '')
     df['Translator'] = 'N/A'
     
-    # Print some statistics
-    print("\nBookline Statistics:")
-    print(f"Total books: {len(df)}")
-    print(f"Unique authors: {df['Author'].nunique()}")
-    print(f"Unique publishers: {df['Publisher'].nunique()}")
-    print(f"Books with publishing date: {df['Publishing_Date'].ne('N/A').sum()}")
-    print(f"Average price: {df['Price'].mean():.2f}")
-    print(f"Average rating: {df['Score'].mean():.2f}")
+    # Trim all string columns in the final output
+    for col in df.columns:
+        if df[col].dtype == 'object':
+            df[col] = df[col].apply(trim_string)
     
     return df[columns]
 
@@ -223,6 +311,11 @@ def standardize_carturesti_data(filepath: str) -> pd.DataFrame:
     df = pd.read_csv(filepath, sep=';', low_memory=False)
     print(f"Found {len(df)} books in Carturesti")
     
+    # Trim all string columns
+    for col in df.columns:
+        if df[col].dtype == 'object':
+            df[col] = df[col].apply(trim_string)
+    
     # Generate IDs
     df['ID'] = [generate_book_id('C', i) for i in range(len(df))]
     
@@ -238,34 +331,84 @@ def standardize_carturesti_data(filepath: str) -> pd.DataFrame:
     df['Author_Std'] = df['Author'].apply(standardize_text)
     
     # Map categories directly (already split)
-    for i in range(1, 5):
-        df[f'Genre{i}'] = df[f'category_{i}']
-        df[f'Genre{i}_Std'] = df[f'Genre{i}'].apply(standardize_text)
+    for i in range(1, 7):
+        df[f'Genre{i}'] = df[f'category_{i}'] if f'category_{i}' in df.columns else np.nan
+    
+    # Set first and last genre
+    df['First_Genre'] = df['Genre1']
+    df['Last_Genre'] = df.apply(
+        lambda x: next((x[f'Genre{i}'] for i in range(6, 0, -1) if not pd.isna(x[f'Genre{i}'])), np.nan),
+        axis=1
+    )
     
     # Convert numeric fields with fixes
-    df['Price'] = df['price'].apply(convert_to_clean_int)
-    # Adjust score to 5-point scale and round to 1 decimal
     df['Score'] = df['score'].apply(convert_to_float).apply(lambda x: round(x/2, 1) if not pd.isna(x) else x)
     df['Reviews'] = df['reviews'].apply(convert_to_clean_int)
     df['Number_Of_Pages'] = df['pages'].apply(convert_to_clean_int).apply(clean_number)
-    df['Publishing_Date'] = df['publish_date'].apply(clean_number)
+    df['Price'] = df['price'].apply(convert_to_float)  # Map price from input data
+    
+    # Process language field for cover type and publishing date
+    def process_language_field(lang: str, current_cover_type: str, current_pub_date: str) -> Tuple[str, str]:
+        if pd.isna(lang) or not isinstance(lang, str):
+            return current_cover_type, current_pub_date
+            
+        # Check for cover type keywords
+        cover_keywords = [
+            "hajtogatott", "irkafűzött", "kapcsos", "kartonált", "kasírozott",
+            "kemény", "keménytábla", "kötve", "lapozó", "leporelló", "műanyag",
+            "műbőr", "nylon", "puhatáblás", "spirál", "Spirál", "szabadlapos",
+            "vászon", "bőr", "velúr", "borító", "díszdobozban", "díszkötésben",
+            "tokban", "félbőr", "félkarton", "félműbőr", "félvászon", "flexi",
+            "fűzve", "gyűrűs mappa"
+        ]
+        
+        # Check for publishing date
+        year_match = re.search(r'Gyártási év:\s*(\d{4})', lang)
+        year = year_match.group(1) if year_match else current_pub_date
+        
+        # Check for invalid content
+        invalid_keywords = [
+            "Korhatár", "Korhatárra", "hibátlan", "hangoskönyv", "könyv",
+            "rajzaival", "mappában", "CD", "plüss", "Rajzolta", "Windows",
+            "térkép", "Típus", "cm", "pdf", "mobi", "ISBN", "Infinity", "kártya"
+        ]
+        
+        # If any invalid keyword is found, return original values
+        if any(keyword in lang for keyword in invalid_keywords):
+            return current_cover_type, current_pub_date
+            
+        # Extract cover type if any keyword is found
+        cover_type = current_cover_type
+        for keyword in cover_keywords:
+            if keyword in lang:
+                cover_type = keyword
+                break
+                
+        return trim_string(cover_type), trim_string(year)
+    
+    # Process language field and update cover type and publishing date
+    df[['Cover_Type', 'Publishing_Date']] = pd.DataFrame(
+        df.apply(lambda x: process_language_field(x['language'], x['edition'], x['publish_date']), axis=1).tolist(),
+        index=df.index
+    )
     
     # Map remaining fields
     df['Publisher'] = df['publisher']
     df['Publisher_Std'] = df['Publisher'].apply(standardize_text)
-    df['Cover_Type'] = df['edition'].apply(handle_invalid_format)
-    df['Cover_Type_Std'] = df['Cover_Type'].apply(standardize_text)
     df['Language'] = df['language']
-    df['Language_Std'] = df['Language'].apply(standardize_text)
     df['Translator'] = df['translator']
     
-    # Print some statistics
-    print("\nCarturesti Statistics:")
-    print(f"Total books: {len(df)}")
-    print(f"Unique authors: {df['Author'].nunique()}")
-    print(f"Unique publishers: {df['Publisher'].nunique()}")
-    print(f"Average price: {df['Price'].mean():.2f}")
-    print(f"Average rating: {df['Score'].mean():.2f}")
+    # Generate category IDs
+    df['Category_ID'] = df.apply(
+        lambda x: generate_category_id([x['Genre1'], x['Genre2'], x['Genre3'], 
+                                      x['Genre4'], x['Genre5'], x['Genre6']]),
+        axis=1
+    )
+    
+    # Trim all string columns in the final output
+    for col in df.columns:
+        if df[col].dtype == 'object':
+            df[col] = df[col].apply(trim_string)
     
     return df[columns]
 
@@ -276,6 +419,11 @@ def standardize_libris_data(filepath: str) -> pd.DataFrame:
     # Read CSV and handle mixed types warning
     df = pd.read_csv(filepath, sep=';', low_memory=False)
     print(f"Found {len(df)} books in Libris")
+    
+    # Trim all string columns
+    for col in df.columns:
+        if df[col].dtype == 'object':
+            df[col] = df[col].apply(trim_string)
     
     # Generate IDs
     df['ID'] = [generate_book_id('L', i) for i in range(len(df))]
@@ -293,33 +441,41 @@ def standardize_libris_data(filepath: str) -> pd.DataFrame:
     
     # Split categories into genres
     categories = df['categories'].str.split(',', expand=True)
-    for i in range(4):
+    for i in range(6):
         df[f'Genre{i+1}'] = categories[i] if i < len(categories.columns) else np.nan
-        df[f'Genre{i+1}_Std'] = df[f'Genre{i+1}'].apply(standardize_text)
+    
+    # Set first and last genre
+    df['First_Genre'] = df['Genre1']
+    df['Last_Genre'] = df.apply(
+        lambda x: next((x[f'Genre{i}'] for i in range(6, 0, -1) if not pd.isna(x[f'Genre{i}'])), np.nan),
+        axis=1
+    )
     
     # Convert numeric fields
-    df['Price'] = df['price'].apply(convert_to_clean_int)
     df['Score'] = df['average_score'].apply(convert_to_float)
     df['Reviews'] = df['votes'].apply(convert_to_clean_int)
     df['Number_Of_Pages'] = df['num_pages'].apply(convert_to_clean_int).apply(clean_number)
     df['Publishing_Date'] = df['publication_year'].apply(convert_to_clean_int).apply(clean_number)
+    df['Price'] = df['price'].apply(convert_to_float)  # Map price from input data
     
     # Map remaining fields
     df['Publisher'] = df['publisher']
     df['Publisher_Std'] = df['Publisher'].apply(standardize_text)
     df['Cover_Type'] = df['cover_type'].apply(handle_invalid_format)
-    df['Cover_Type_Std'] = df['Cover_Type'].apply(standardize_text)
     df['Language'] = 'N/A'
-    df['Language_Std'] = df['Language'].apply(standardize_text)
     df['Translator'] = 'N/A'
     
-    # Print some statistics
-    print("\nLibris Statistics:")
-    print(f"Total books: {len(df)}")
-    print(f"Unique authors: {df['Author'].nunique()}")
-    print(f"Unique publishers: {df['Publisher'].nunique()}")
-    print(f"Average price: {df['Price'].mean():.2f}")
-    print(f"Average rating: {df['Score'].mean():.2f}")
+    # Generate category IDs
+    df['Category_ID'] = df.apply(
+        lambda x: generate_category_id([x['Genre1'], x['Genre2'], x['Genre3'], 
+                                      x['Genre4'], x['Genre5'], x['Genre6']]),
+        axis=1
+    )
+    
+    # Trim all string columns in the final output
+    for col in df.columns:
+        if df[col].dtype == 'object':
+            df[col] = df[col].apply(trim_string)
     
     return df[columns]
 
@@ -339,7 +495,7 @@ def create_unique_lists(df: pd.DataFrame) -> Dict[str, pd.DataFrame]:
     # Handle formats - exclude N/A and "Szállító"
     formats_df = pd.DataFrame({
         'Format': df['Cover_Type'],
-        'Format_Std': df['Cover_Type_Std']
+        'Format_Std': df['Cover_Type'].apply(lambda x: 'N/A' if x == 'N/A' else 'Szállító')
     })
     formats_df = formats_df[
         (formats_df['Format'] != 'N/A') & 
@@ -348,15 +504,12 @@ def create_unique_lists(df: pd.DataFrame) -> Dict[str, pd.DataFrame]:
     
     # Handle categories - clean spaces and drop duplicates
     all_categories = []
-    all_categories_std = []
-    for i in range(1, 5):
-        valid_categories = df[['Genre' + str(i), 'Genre' + str(i) + '_Std']].dropna()
+    for i in range(1, 7):
+        valid_categories = df[['Genre' + str(i)]].dropna()
         all_categories.extend(valid_categories['Genre' + str(i)].str.strip())
-        all_categories_std.extend(valid_categories['Genre' + str(i) + '_Std'])
     
     categories_df = pd.DataFrame({
-        'Category': pd.Series(all_categories),
-        'Category_Std': pd.Series(all_categories_std)
+        'Category': pd.Series(all_categories)
     }).drop_duplicates()
     
     return {
@@ -371,20 +524,12 @@ def save_unique_lists(unique_lists: Dict[str, pd.DataFrame], output_dir: str):
     for name, df in unique_lists.items():
         df.to_csv(f'{output_dir}/{name}.csv', index=False, encoding='utf-8', sep=';')
 
-def save_invalid_formats(df: pd.DataFrame, output_dir: str):
-    """Save records with invalid formats to a separate file."""
-    invalid_formats = df[~df['Cover_Type'].apply(lambda x: x != 'N/A')]
-    if len(invalid_formats) > 0:
-        invalid_formats.to_csv(f'{output_dir}/invalid_formats.csv', 
-                             index=False, encoding='utf-8', sep=';')
-        print(f"Saved {len(invalid_formats)} invalid format records to invalid_formats.csv")
-
 # Modify the main execution
 if __name__ == "__main__":
     print("Starting data standardization process...")
     
     # Standardize data from each source
-    bookline_df = standardize_bookline_data('Data\Bookline\\book_details.csv')
+    bookline_df = standardize_bookline_data('Data\Bookline\\Book_details_unique.csv')
     print("Saving Bookline standardized data...")
     bookline_df.to_csv('Data\Bookline\standardized.csv', sep=';')
     
