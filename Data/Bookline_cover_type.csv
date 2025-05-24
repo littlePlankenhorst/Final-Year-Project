@@ -1,157 +1,69 @@
-Cover_Type;Cover_Type_Std
-füles, kartonált;fules kartonalt
-keménytábla, védőborító;kemenytabla vedoborito
-puhatáblás, ragasztókötött;puhatablas ragasztokotott
-fűzve;fuzve
-cérnafűzött, keménytáblás;cernafuzott kemenytablas
-kötve;kotve
-papír / puha kötés;papir  puha kotes
-kemény kötés;kemeny kotes
-irkafűzött;irkafuzott
-ragasztott;ragasztott
-karton;karton
-kemény kötésben;kemeny kotesben
-N/A;na
-kartonált ragasztókötés visszahajló füllel;kartonalt ragasztokotes visszahajlo fullel
-ragasztott, keménytábla;ragasztott kemenytabla
-félvászon;felvaszon
-pamphlet / füzet;pamphlet  fuzet
-leporelló;leporello
-cérnafűzött;cernafuzott
-ragasztókötött;ragasztokotott
-papírkötés;papirkotes
-díszkötés;diszkotes
-műbőr;mubor
-cérnafűzött kartonált védőborítóval;cernafuzott kartonalt vedoboritoval
-spirál;spiral
-kartonált, cérnafűzött;kartonalt cernafuzott
-flexi;flexi
-kötve, védővel;kotve vedovel
-dobozban / tokban;dobozban  tokban
-lapozó;lapozo
-keménytábla, dobozban;kemenytabla dobozban
-flexibilis, cérnafűzött;flexibilis cernafuzott
-pur ragasztókötés;pur ragasztokotes
-kötve, habosított;kotve habositott
-vászon;vaszon
-keménytáblás, vászonborítós;kemenytablas vaszonboritos
-díszdobozban;diszdobozban
-közepes állapotú antikvár könyv;kozepes allapotu antikvar konyv
-kapcsos;kapcsos
-celofán csomagolás;celofan csomagolas
-pergamen;pergamen
-térkép;terkep
-CD;cd
-félbőr;felbor
-bőr;bor
-jó állapotú antikvár könyv;jo allapotu antikvar konyv
-naptár;naptar
-Szállító: Atticus;szallito atticus
-Szállító: Fiume Antikvárium;szallito fiume antikvarium
-műanyag;muanyag
-Szállító: Vonnegut Antikvárium;szallito vonnegut antikvarium
-Szállító: Könyvmoly Antikvárium;szallito konyvmoly antikvarium
-bársony / velúr;barsony  velur
-Szállító: Bodoni Antikvárium;szallito bodoni antikvarium
-Szállító: Tordai Antikvárium;szallito tordai antikvarium
-Szállító: Könyvplacc Antikvárium;szallito konyvplacc antikvarium
-Szállító: Szentendre Antikvárium;szallito szentendre antikvarium
-Szállító: Oskola Antikvárium;szallito oskola antikvarium
-Szállító: Studió Antikvárium Kft;szallito studio antikvarium kft
-Szállító: Könyvlabirintus Antikvárium;szallito konyvlabirintus antikvarium
-Szállító: Könyvtársaság Antikvárium;szallito konyvtarsasag antikvarium
-Szállító: Könyvbogár Antikvárium;szallito konyvbogar antikvarium
-Szállító: Hernádi Antikvárium;szallito hernadi antikvarium
-Szállító: Fülemüle Antikvárium;szallito fulemule antikvarium
-Szállító: Pestszentlőrinci antikvárium;szallito pestszentlorinci antikvarium
-Szállító: Németvölgyi Antikvárium;szallito nemetvolgyi antikvarium
-szabadlapos;szabadlapos
-Szállító: Psyché Antikvárium;szallito psyche antikvarium
-Szállító: Tűzőr Antikvárium;szallito tuzor antikvarium
-Szállító: Diana Antikvárium;szallito diana antikvarium
-Szállító: Központi Antikvárium Kft.;szallito kozponti antikvarium kft
-Dedikált;dedikalt
-ragasztott keménytábla, félvászon;ragasztott kemenytabla felvaszon
-Szállító: Vegyenkönyvet Antikvárium;szallito vegyenkonyvet antikvarium
-Szállító: Szindbád Antikvárium;szallito szindbad antikvarium
-Szállító: KÉREM A KÖVETKEZÕT Antikvárium;szallito kerem a kovetkezot antikvarium
-Szállító: Bagolyfészek Antikvárium;szallito bagolyfeszek antikvarium
-Szállító: Könyvmámor Antikvárium;szallito konyvmamor antikvarium
-félműbőr;felmubor
-Szállító: Pápaszem Antikvárium Bt.;szallito papaszem antikvarium bt
-Szállító: Weöres Antikvárium;szallito weores antikvarium
-Szállító: Könyvbarát Antikvárium;szallito konyvbarat antikvarium
-Szállító: Mike és Tsa Antikvárium;szallito mike es tsa antikvarium
-Szállító: Diófa Antikvárium Kft.;szallito diofa antikvarium kft
-Szállító: Dobossy Antikvárium;szallito dobossy antikvarium
-Szállító: HOGATRON ANTIKVÁRIUM;szallito hogatron antikvarium
-Szállító: Hírös Antikvárium;szallito hiros antikvarium
-Szállító: A Hely Antikvárium;szallito a hely antikvarium
-Szállító: Forray Antikvárium;szallito forray antikvarium
-Szállító: Vértesi Antikvárium Bt.;szallito vertesi antikvarium bt
-nylon / félnylon;nylon  felnylon
-hibátlan, olvasatlan példány;hibatlan olvasatlan peldany
-Szállító: Szófia Antikvárium;szallito szofia antikvarium
-Szállító: Méliusz Antikvárium;szallito meliusz antikvarium
-Szállító: Mondat Antikvárium;szallito mondat antikvarium
-Szállító: ÁRPÁD ANTIKVÁRIUM;szallito arpad antikvarium
-Szállító: Matthias Rex Antikvárium;szallito matthias rex antikvarium
-félkarton;felkarton
-Szállító: Horizont Antikvárium;szallito horizont antikvarium
-Szállító: Random Antikvárium;szallito random antikvarium
-Szállító: Holló Antikvárium;szallito hollo antikvarium
-Szállító: Abaúj Antikvárium;szallito abauj antikvarium
-plüss;pluss
-Szállító: Gasztrofilm Kultúra Kft.;szallito gasztrofilm kultura kft
-Szállító: THE BOOKSHOP;szallito the bookshop
-hajtogatott;hajtogatott
-mappában;mappaban
-Szállító: Eiffel Antikvárium;szallito eiffel antikvarium
-Szállító: Könyv és Könyv Bt.;szallito konyv es konyv bt
-Szállító: Bástya Antikvárium;szallito bastya antikvarium
-Szállító: Buda-Nosztalgia Antikvárium;szallito budanosztalgia antikvarium
-befűzhető lapos kapcsos;befuzheto lapos kapcsos
-Szállító: Poéta Antikvárium;szallito poeta antikvarium
-Szállító: GreenBook Antikvárium;szallito greenbook antikvarium
-Szállító: Kóborló Antikvárium;szallito koborlo antikvarium
-Szállító: Magna Mater Antikvárium;szallito magna mater antikvarium
-Szállító: Eiffel Bazár;szallito eiffel bazar
-Szállító: Könyvbirodalom Antikvárium;szallito konyvbirodalom antikvarium
-Szállító: Antikvár Könyvek Kft.;szallito antikvar konyvek kft
-DVD;dvd
-nemez / félnemez;nemez  felnemez
-Szállító: Boontiwa Antikvárium;szallito boontiwa antikvarium
-bélelt borító;belelt borito
-Szállító: Alba Antik Litera Kft.;szallito alba antik litera kft
-gyűrűs mappa;gyurus mappa
-Szállító: Nosztalgia Antikvárium;szallito nosztalgia antikvarium
-Szállító: KönyvErdő online antikvárium;szallito konyverdo online antikvarium
-plasztik tasakban;plasztik tasakban
-Szállító: Bokonon Antikvárium;szallito bokonon antikvarium
-Szállító: Győri Antikvárium;szallito gyori antikvarium
-fűzött védőborítós tokban;fuzott vedoboritos tokban
-Szállító: Alba Könyvépítő Kft.;szallito alba konyvepito kft
-kártya;kartya
-Antikvár könyv;antikvar konyv
-Szállító: Antiquarium Hungaricum Kft.;szallito antiquarium hungaricum kft
-Szállító: Antikvár Könyvkínáló;szallito antikvar konyvkinalo
-kartonált, spriálfűzött;kartonalt sprialfuzott
-selyem;selyem
-Típus: DVD;tipus dvd
-Képformátum: 16:9 - 1.85:1;kepformatum 169  1851
-Típus: BLU-RAY;tipus bluray
-Lemezek száma: 1;lemezek szama 1
-Képformátum: 4:3;kepformatum 43
-Képformátum: 16:9;kepformatum 169
-Magasság - 21 cm;magassag  21 cm
-Magyar - Angol - Német nyelven;magyar  angol  nemet nyelven
-Játékidő: 60 perc;jatekido 60 perc
-Nyelvtan;nyelvtan
-Lemezek száma: 5;lemezek szama 5
-Képformátum: 16:9 - 1.78:1;kepformatum 169  1781
-Típus: DVD Audió;tipus dvd audio
-Lemezek száma: 3;lemezek szama 3
-Típus: 2CD+DVD;tipus 2cddvd
-Képformátum: 4:3 - 1.33:1;kepformatum 43  1331
-flexibilis karton;flexibilis karton
-cérnafűzött, oromszegős, könyvjelzővel ellátott;cernafuzott oromszegos konyvjelzovel ellatott
+Cover_Type
+keménytábla, védőborító
+puhatáblás, ragasztókötött
+cérnafűzött, keménytáblás
+füles, kartonált
+karton
+kemény kötés
+irkafűzött
+lapozó
+papír / puha kötés
+kartonált, cérnafűzött
+leporelló
+dobozban / tokban
+kemény kötésben
+N/A
+ragasztott
+flexibilis, cérnafűzött
+ragasztókötött
+spirál
+ragasztott, keménytábla
+flexibilis karton
+vászon
+kartonált ragasztókötés visszahajló füllel
+kötve, habosított
+flexi
+keménytábla, dobozban
+bélelt borító
+fűzetlen
+keménytáblás, vászonborítós
+fűzve
+bőr
+díszdobozban
+kötve
+kötve, védővel
+félkarton
+fóliázott
+műbőr
+pur ragasztókötés
+cérnafűzött kartonált védőborítóval
+kartonált, spriálfűzött
+díszkötés
+cérnafűzött
+kártya
+stancolt
+bársony / velúr
+papírkötés
+mappában
+cérnafűzött, oromszegős, könyvjelzővel ellátott
+kapcsos
+Dedikált
+keménytáblás, műbőrkötéses
+ragasztott keménytábla, félvászon
+befűzhető lapos kapcsos
+szabadlapos
+műanyag
+kasírozott
+fűzött védőborítós tokban
+gyűrűs mappa
+plasztik tasakban
+zipzáras tokban
+jegyzet
+hajtogatott
+pamphlet / füzet
+gumiborító
+félvászon
+celofán csomagolás
+térkép
+puha,díszvarrott
+textil

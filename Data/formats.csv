@@ -1,95 +1,76 @@
 Format;Format_Std
-füles, kartonált;fules kartonalt
-keménytábla, védőborító;kemenytabla vedoborito
-puhatáblás, ragasztókötött;puhatablas ragasztokotott
-fűzve;fuzve
-cérnafűzött, keménytáblás;cernafuzott kemenytablas
-kötve;kotve
-papír / puha kötés;papir  puha kotes
-kemény kötés;kemeny kotes
-irkafűzött;irkafuzott
-ragasztott;ragasztott
-karton;karton
-kemény kötésben;kemeny kotesben
-kartonált ragasztókötés visszahajló füllel;kartonalt ragasztokotes visszahajlo fullel
-ragasztott, keménytábla;ragasztott kemenytabla
-félvászon;felvaszon
-pamphlet / füzet;pamphlet  fuzet
-leporelló;leporello
-cérnafűzött;cernafuzott
-ragasztókötött;ragasztokotott
-papírkötés;papirkotes
-díszkötés;diszkotes
-műbőr;mubor
-cérnafűzött kartonált védőborítóval;cernafuzott kartonalt vedoboritoval
-spirál;spiral
-kartonált, cérnafűzött;kartonalt cernafuzott
-flexi;flexi
-kötve, védővel;kotve vedovel
-dobozban / tokban;dobozban  tokban
-lapozó;lapozo
-keménytábla, dobozban;kemenytabla dobozban
-flexibilis, cérnafűzött;flexibilis cernafuzott
-pur ragasztókötés;pur ragasztokotes
-kötve, habosított;kotve habositott
-vászon;vaszon
-keménytáblás, vászonborítós;kemenytablas vaszonboritos
-díszdobozban;diszdobozban
-közepes állapotú antikvár könyv;kozepes allapotu antikvar konyv
-kapcsos;kapcsos
-celofán csomagolás;celofan csomagolas
-pergamen;pergamen
-térkép;terkep
-CD;cd
-félbőr;felbor
-bőr;bor
-jó állapotú antikvár könyv;jo allapotu antikvar konyv
-naptár;naptar
-műanyag;muanyag
-bársony / velúr;barsony  velur
-szabadlapos;szabadlapos
-Dedikált;dedikalt
-ragasztott keménytábla, félvászon;ragasztott kemenytabla felvaszon
-félműbőr;felmubor
-nylon / félnylon;nylon  felnylon
-hibátlan, olvasatlan példány;hibatlan olvasatlan peldany
-félkarton;felkarton
-plüss;pluss
-hajtogatott;hajtogatott
-mappában;mappaban
-befűzhető lapos kapcsos;befuzheto lapos kapcsos
-DVD;dvd
-nemez / félnemez;nemez  felnemez
-bélelt borító;belelt borito
-gyűrűs mappa;gyurus mappa
-plasztik tasakban;plasztik tasakban
-fűzött védőborítós tokban;fuzott vedoboritos tokban
-kártya;kartya
-Antikvár könyv;antikvar konyv
-kartonált, spriálfűzött;kartonalt sprialfuzott
-selyem;selyem
-Típus: DVD;tipus dvd
-Képformátum: 16:9 - 1.85:1;kepformatum 169  1851
-Típus: BLU-RAY;tipus bluray
-Lemezek száma: 1;lemezek szama 1
-Képformátum: 4:3;kepformatum 43
-Képformátum: 16:9;kepformatum 169
-Magasság - 21 cm;magassag  21 cm
-Magyar - Angol - Német nyelven;magyar  angol  nemet nyelven
-Játékidő: 60 perc;jatekido 60 perc
-Nyelvtan;nyelvtan
-Lemezek száma: 5;lemezek szama 5
-Képformátum: 16:9 - 1.78:1;kepformatum 169  1781
-Típus: DVD Audió;tipus dvd audio
-Lemezek száma: 3;lemezek szama 3
-Típus: 2CD+DVD;tipus 2cddvd
-Képformátum: 4:3 - 1.33:1;kepformatum 43  1331
-flexibilis karton;flexibilis karton
-cérnafűzött, oromszegős, könyvjelzővel ellátott;cernafuzott oromszegos konyvjelzovel ellatott
-Paperback;paperback
-Hardcover;hardcover
-Paperback, Paperback;paperback paperback
-Flexibound;flexibound
-Necartonata;necartonata
-Cartonata;cartonata
-Paperback / softback;paperback  softback
+keménytábla, védőborító;Szállító
+puhatáblás, ragasztókötött;Szállító
+cérnafűzött, keménytáblás;Szállító
+füles, kartonált;Szállító
+karton;Szállító
+kemény kötés;Szállító
+irkafűzött;Szállító
+lapozó;Szállító
+papír / puha kötés;Szállító
+kartonált, cérnafűzött;Szállító
+leporelló;Szállító
+dobozban / tokban;Szállító
+kemény kötésben;Szállító
+ragasztott;Szállító
+flexibilis, cérnafűzött;Szállító
+ragasztókötött;Szállító
+spirál;Szállító
+ragasztott, keménytábla;Szállító
+flexibilis karton;Szállító
+vászon;Szállító
+kartonált ragasztókötés visszahajló füllel;Szállító
+kötve, habosított;Szállító
+flexi;Szállító
+keménytábla, dobozban;Szállító
+bélelt borító;Szállító
+fűzetlen;Szállító
+keménytáblás, vászonborítós;Szállító
+fűzve;Szállító
+bőr;Szállító
+díszdobozban;Szállító
+kötve;Szállító
+kötve, védővel;Szállító
+félkarton;Szállító
+fóliázott;Szállító
+műbőr;Szállító
+pur ragasztókötés;Szállító
+cérnafűzött kartonált védőborítóval;Szállító
+kartonált, spriálfűzött;Szállító
+díszkötés;Szállító
+cérnafűzött;Szállító
+kártya;Szállító
+stancolt;Szállító
+bársony / velúr;Szállító
+papírkötés;Szállító
+mappában;Szállító
+cérnafűzött, oromszegős, könyvjelzővel ellátott;Szállító
+kapcsos;Szállító
+Dedikált;Szállító
+keménytáblás, műbőrkötéses;Szállító
+ragasztott keménytábla, félvászon;Szállító
+befűzhető lapos kapcsos;Szállító
+szabadlapos;Szállító
+műanyag;Szállító
+kasírozott;Szállító
+fűzött védőborítós tokban;Szállító
+gyűrűs mappa;Szállító
+plasztik tasakban;Szállító
+zipzáras tokban;Szállító
+jegyzet;Szállító
+hajtogatott;Szállító
+pamphlet / füzet;Szállító
+gumiborító;Szállító
+félvászon;Szállító
+celofán csomagolás;Szállító
+térkép;Szállító
+puha,díszvarrott;Szállító
+textil;Szállító
+Paperback;Szállító
+;Szállító
+Hardcover;Szállító
+Paperback, Paperback;Szállító
+Flexibound;Szállító
+Necartonata;Szállító
+Cartonata;Szállító
+Paperback / softback;Szállító
