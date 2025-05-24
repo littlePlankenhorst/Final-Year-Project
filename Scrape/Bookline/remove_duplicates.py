@@ -2,8 +2,8 @@ import pandas as pd
 import os
 
 def remove_duplicates():
-    input_file = 'Data/Bookline/book_details.csv'
-    output_file = 'Data/Bookline/book_details_unique.csv'
+    input_file = 'Data/Bookline/Book_bookdetails2.csv'
+    output_file = 'Data/Bookline/Book_details_unique.csv'
     
     print("Reading CSV file...")
     # Read CSV with semicolon delimiter
@@ -15,7 +15,7 @@ def remove_duplicates():
     
     # Remove duplicates based on title and author
     print("Removing duplicates...")
-    df_unique = df.drop_duplicates(subset=['title', 'author', 'price'], keep='first')
+    df_unique = df.drop_duplicates(subset=['title', 'author', 'price', 'publisher'], keep='first')
     
     # Get final count
     final_count = len(df_unique)
